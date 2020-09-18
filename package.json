@@ -1,0 +1,31 @@
+{
+  "name": "sportzone",
+  "version": "0.1.0",
+  "description": "API for Sportzone",
+  "main": "server.js",
+  "scripts": {
+    "start": "cross-env NODE_ENV=production node server",
+    "dev": "cross-env NODE_ENV=development nodemon server"
+  },
+  "keywords": [
+    "Sport",
+    "Soccer",
+    "Football",
+    "Basketball"
+  ],
+  "author": "Ron Mens",
+  "license": "MIT",
+  "dependencies": {
+    "cron": "^1.8.2",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "moment": "^2.27.0",
+    "morgan": "^1.10.0",
+    "node-fetch": "^2.6.1",
+    "redis": "^3.0.2"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.2",
+    "nodemon": "^2.0.4"
+  }
+}
