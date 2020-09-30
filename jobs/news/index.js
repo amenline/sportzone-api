@@ -2,16 +2,24 @@ const redis = require('redis');
 const fetch_competition_news = require('./competition_news');
 const { promisify } = require('util');
 
+// redis client
 let client = redis.createClient();
 client.on('error', function (error) {
   console.error(error);
 });
 const setAsync = promisify(client.set).bind(client);
 
+// set fetched news to Redis
 const fetch_and_save = async (redis_key, espn_name) => {
-  const news = await fetch_competition_news(espn_name);
-  const response = await setAsync(redis_key, JSON.stringify(news));
-  console.log(`${redis_key} :`, response);
+  try {
+    const news = await fetch_competition_news(espn_name);
+    const response = await setAsync(redis_key, JSON.stringify(news));
+    console.log(`${redis_key} :`, response);
+  } catch (error) {
+    console.log(error);
+    // exit
+    process.exit(1);
+  }
 };
 
 const competition_news = () => {
@@ -40,4 +48,4 @@ const competition_news = () => {
   fetch_and_save('concacaf_nations_news', 'concacaf.nations.league');
 };
 
-competition_news();
+module.exports = competition_news;
