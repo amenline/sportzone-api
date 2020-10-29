@@ -1,4 +1,29 @@
 const fetch = require("node-fetch");
+const redis = require("redis");
+const { promisify } = require("util");
+
+/**
+ * Sets data to redis
+ * @param {string} redis_key
+ * @param {any} value
+ * @returns null
+ */
+const set_data_to_redis = async (redis_key, value) => {
+  try {
+    let client = redis.createClient();
+    client.on("error", function (error) {
+      console.error(error);
+    });
+    const setAsync = promisify(client.set).bind(client);
+
+    const response = await setAsync(redis_key, JSON.stringify(value));
+    console.log(`${redis_key} :`, response);
+  } catch (error) {
+    console.log(error);
+    // exit
+    process.exit(1);
+  }
+};
 
 /**
  * Fetch data from RapidApi
@@ -48,4 +73,5 @@ module.exports = {
   rapid_fetch,
   get_year,
   compare_dates,
+  set_data_to_redis,
 };

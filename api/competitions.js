@@ -24,6 +24,8 @@ router.get("/", async (req, res) => {
   }
 });
 
+// @description     All required competitions
+// @route           GET /competitions/active
 router.get("/active", async (req, res) => {
   try {
     const leagues = await getAsync("competitions");
@@ -35,6 +37,8 @@ router.get("/active", async (req, res) => {
   }
 });
 
+// @description     A test route for dev purposes
+// @route           GET /competitions/tests
 router.get("/tests", async (req, res) => {
   try {
     const result = await fetch_leagues();

@@ -3,6 +3,7 @@ const fetch = require("node-fetch");
 const { rapid_fetch, get_year, compare_dates } = require("../../helper");
 const redis = require("redis");
 
+// fetch and filter competitions from
 const fetch_leagues = async () => {
   try {
     const leagues = await rapid_fetch(
