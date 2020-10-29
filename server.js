@@ -37,7 +37,7 @@ const competiton_worker = new CronJob(
 );
 
 // test kits
-app.use("/dev", require("./api/dev"));
+app.use("/competitions", require("./api/competitions"));
 
 // API Routes
 app.use("/news", require("./api/news"));

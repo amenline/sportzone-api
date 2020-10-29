@@ -1,11 +1,11 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const redis = require('redis');
-const { promisify } = require('util');
+const redis = require("redis");
+const { promisify } = require("util");
 
 // redis client
 let client = redis.createClient();
-client.on('error', function (error) {
+client.on("error", function (error) {
   console.error(error);
 });
 const getAsync = promisify(client.get).bind(client);
@@ -23,11 +23,11 @@ const getAsync = promisify(client.get).bind(client);
  * concacaf_nations_news              = cn
  */
 
-// @des     Premier League News
-// @route   GET /api/news/epl
-router.get('/epl', async (req, res) => {
+// @description     Premier League News
+// @route           GET /news/epl
+router.get("/epl", async (req, res) => {
   try {
-    const news = await getAsync('premier_league_news');
+    const news = await getAsync("premier_league_news");
     res.send(JSON.parse(news));
   } catch (error) {
     console.log(error);
@@ -35,11 +35,11 @@ router.get('/epl', async (req, res) => {
   }
 });
 
-// @des     Champions League News
-// @route   GET /api/news/uc
-router.get('/uc', async (req, res) => {
+// @description     Champions League News
+// @route           GET /news/uc
+router.get("/uc", async (req, res) => {
   try {
-    const news = await getAsync('champions_league_news');
+    const news = await getAsync("champions_league_news");
     res.send(JSON.parse(news));
   } catch (error) {
     console.log(error);
@@ -47,11 +47,11 @@ router.get('/uc', async (req, res) => {
   }
 });
 
-// @des     La Liga News
-// @route   GET /api/news/lal
-router.get('/lal', async (req, res) => {
+// @description     La Liga News
+// @route           GET /news/lal
+router.get("/lal", async (req, res) => {
   try {
-    const news = await getAsync('la_liga_news');
+    const news = await getAsync("la_liga_news");
     res.send(JSON.parse(news));
   } catch (error) {
     console.log(error);
@@ -59,11 +59,11 @@ router.get('/lal', async (req, res) => {
   }
 });
 
-// @des     Europa League News
-// @route   GET /api/news/eup
-router.get('/eup', async (req, res) => {
+// @description     Europa League News
+// @route           GET /news/eup
+router.get("/eup", async (req, res) => {
   try {
-    const news = await getAsync('europa_league_news');
+    const news = await getAsync("europa_league_news");
     res.send(JSON.parse(news));
   } catch (error) {
     console.log(error);
@@ -71,11 +71,11 @@ router.get('/eup', async (req, res) => {
   }
 });
 
-// @des     Serie A News
-// @route   GET /api/news/ser
-router.get('/ser', async (req, res) => {
+// @description     Serie A News
+// @route           GET /news/ser
+router.get("/ser", async (req, res) => {
   try {
-    const news = await getAsync('serie_a_news');
+    const news = await getAsync("serie_a_news");
     res.send(JSON.parse(news));
   } catch (error) {
     console.log(error);
@@ -83,11 +83,11 @@ router.get('/ser', async (req, res) => {
   }
 });
 
-// @des     Major League Soccer News
-// @route   GET /api/news/mjs
-router.get('/mjs', async (req, res) => {
+// @description     Major League Soccer News
+// @route           GET /news/mjs
+router.get("/mjs", async (req, res) => {
   try {
-    const news = await getAsync('major_league_soccer_news');
+    const news = await getAsync("major_league_soccer_news");
     res.send(JSON.parse(news));
   } catch (error) {
     console.log(error);
@@ -95,11 +95,11 @@ router.get('/mjs', async (req, res) => {
   }
 });
 
-// @des     Bundesliga News
-// @route   GET /api/news/bunl
-router.get('/bunl', async (req, res) => {
+// @description     Bundesliga News
+// @route           GET /news/bunl
+router.get("/bunl", async (req, res) => {
   try {
-    const news = await getAsync('bundesliga_news');
+    const news = await getAsync("bundesliga_news");
     res.send(JSON.parse(news));
   } catch (error) {
     console.log(error);
@@ -107,11 +107,11 @@ router.get('/bunl', async (req, res) => {
   }
 });
 
-// @des     Bundesliga2 News
-// @route   GET /api/news/bunl2
-router.get('/bunl2', async (req, res) => {
+// @description     Bundesliga2 News
+// @route           GET /news/bunl2
+router.get("/bunl2", async (req, res) => {
   try {
-    const news = await getAsync('bundesliga2_news');
+    const news = await getAsync("bundesliga2_news");
     res.send(JSON.parse(news));
   } catch (error) {
     console.log(error);
@@ -119,11 +119,11 @@ router.get('/bunl2', async (req, res) => {
   }
 });
 
-// @des     European Championship Qualifying News
-// @route   GET /api/news/euq
-router.get('/euq', async (req, res) => {
+// @description     European Championship Qualifying News
+// @route           GET /news/euq
+router.get("/euq", async (req, res) => {
   try {
-    const news = await getAsync('eu_championship_qualifying_news');
+    const news = await getAsync("eu_championship_qualifying_news");
     res.send(JSON.parse(news));
   } catch (error) {
     console.log(error);
@@ -131,11 +131,11 @@ router.get('/euq', async (req, res) => {
   }
 });
 
-// @des     Concacaf Nations News
-// @route   GET /api/news/cn
-router.get('/cn', async (req, res) => {
+// @description     Concacaf Nations News
+// @route           GET /news/cn
+router.get("/cn", async (req, res) => {
   try {
-    const news = await getAsync('concacaf_nations_news');
+    const news = await getAsync("concacaf_nations_news");
     res.send(JSON.parse(news));
   } catch (error) {
     console.log(error);
