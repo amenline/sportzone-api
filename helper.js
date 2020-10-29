@@ -35,16 +35,13 @@ const get_year = () => {
 
 /**
  * Compares to determine which of two dates is past
- * Returns true if the first date is past compared to the second
+ * Returns false if the first date is past compared to the second
  * @param {Date} firstDate
  * @param {Date} secondDate
  * @returns boolean
  */
-const compare_dates = (
-  firstDate,
-  secondDate = new Date().toLocaleDateString("en-CA")
-) => {
-  return firstDate.setHours(0, 0, 0, 0) <= secondDate.setHours(0, 0, 0, 0);
+const compare_dates = (firstDate, secondDate = new Date()) => {
+  return firstDate.setHours(0, 0, 0, 0) >= secondDate.setHours(0, 0, 0, 0);
 };
 
 module.exports = {

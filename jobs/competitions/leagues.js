@@ -1,6 +1,6 @@
 const express = require("express");
 const fetch = require("node-fetch");
-const { rapid_fetch, get_year } = require("../../helper");
+const { rapid_fetch, get_year, compare_dates } = require("../../helper");
 const redis = require("redis");
 
 const fetch_leagues = async () => {
@@ -17,7 +17,8 @@ const fetch_leagues = async () => {
 };
 
 const filter_leagues = (leagues) => {
-  const current = [];
+  const competitions = [];
+  const filteredLeague = [];
   leagues.forEach((league) => {
     const year = get_year();
     // filter based on year
@@ -32,7 +33,7 @@ const filter_leagues = (leagues) => {
           league.name.includes("UEFA Europa League") ||
           league.name.includes("World Cup")
         ) {
-          current.push(league);
+          filteredLeague.push(league);
         }
       }
       // filter for England
@@ -46,7 +47,7 @@ const filter_leagues = (leagues) => {
           league.name.includes("Premier League") ||
           league.name.includes("Championship")
         ) {
-          current.push(league);
+          filteredLeague.push(league);
         }
       }
       // filter for Germany
@@ -56,30 +57,41 @@ const filter_leagues = (leagues) => {
         !league.name.includes("U19")
       ) {
         if (league.name.includes("Bundesliga")) {
-          current.push(league);
+          filteredLeague.push(league);
         }
       }
       // filter for Italy
       if (league.country == "Italy" && !league.name.includes("Women")) {
         if (league.name.includes("Serie A")) {
-          current.push(league);
+          filteredLeague.push(league);
         }
       }
       // filter for Spain
       if (league.country == "Spain" && !league.name.includes("Women")) {
         if (league.name.includes("Primera Division")) {
-          current.push(league);
+          filteredLeague.push(league);
         }
       }
       // filter for USA
       if (league.country == "USA" && !league.name.includes("Women")) {
         if (league.name.includes("Major League Soccer")) {
-          current.push(league);
+          filteredLeague.push(league);
         }
       }
     }
   });
-  return current;
+
+  // remove all completed leagues
+  filteredLeague.forEach((league) => {
+    if (compare_dates(new Date(league.season_end))) {
+      competitions.push(league);
+    }
+  });
+
+  return {
+    all: filteredLeague,
+    ongoing: competitions,
+  };
 };
 
 module.exports = fetch_leagues;
