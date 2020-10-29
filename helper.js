@@ -3,7 +3,7 @@ const fetch = require("node-fetch");
 /**
  * Fetch data from RapidApi
  * @param {string} url
- * @returns json object
+ * @returns object
  */
 const rapid_fetch = async (url) => {
   try {
@@ -33,7 +33,22 @@ const get_year = () => {
   return year;
 };
 
+/**
+ * Compares to determine which of two dates is past
+ * Returns true if the first date is past compared to the second
+ * @param {Date} firstDate
+ * @param {Date} secondDate
+ * @returns boolean
+ */
+const compare_dates = (
+  firstDate,
+  secondDate = new Date().toLocaleDateString("en-CA")
+) => {
+  return firstDate.setHours(0, 0, 0, 0) <= secondDate.setHours(0, 0, 0, 0);
+};
+
 module.exports = {
   rapid_fetch,
   get_year,
+  compare_dates,
 };

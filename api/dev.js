@@ -2,6 +2,7 @@ const express = require("express");
 const fetch = require("node-fetch");
 const router = express.Router();
 const { rapid_fetch, get_year } = require("../helper");
+const fetch_leagues = require("../jobs/competitions/leagues");
 // const news = require("./jobs/news/index");
 // const redis = require("redis");
 
@@ -14,10 +15,11 @@ router.get("/", (req, res) => {
 
 router.get("/tests", async (req, res) => {
   try {
-    const leagues = await rapid_fetch(
-      "https://api-football-v1.p.rapidapi.com/v2/leagues"
-    );
-    const result = filterLeagues(leagues.api.leagues);
+    // const leagues = await rapid_fetch(
+    //   "https://api-football-v1.p.rapidapi.com/v2/leagues"
+    // );
+    // const result = filterLeagues(leagues.api.leagues);
+    const result = await fetch_leagues();
     res.send({ result: result });
   } catch (error) {
     console.log(error);
@@ -25,19 +27,19 @@ router.get("/tests", async (req, res) => {
   }
 });
 
-const filterLeagues = (leagues) => {
-  const current = [];
-  leagues.forEach((league) => {
-    const year = get_year();
-    if (
-      (league.season == year || league.season == year + 1) &&
-      league.country == "World"
-    ) {
-      current.push(league);
-    }
-  });
-  return current;
-};
+// const filterLeagues = (leagues) => {
+//   const current = [];
+//   leagues.forEach((league) => {
+//     const year = get_year();
+//     if (
+//       (league.season == year || league.season == year + 1) &&
+//       league.country == "World"
+//     ) {
+//       current.push(league);
+//     }
+//   });
+//   return current;
+// };
 
 const leagueNames = {
   World: [
